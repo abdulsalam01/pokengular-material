@@ -1,5 +1,7 @@
 # Pokengular
 
+![dashboard](./dashboard.png)
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.29.
 
 ## Pre Init
@@ -9,11 +11,11 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Run `npx ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Run `npx ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
 ## Route
 1. `http://localhost:4200/` is BASE
