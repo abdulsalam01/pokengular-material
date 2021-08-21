@@ -1,0 +1,160 @@
+<!-- progress spinner -->
+<div class="container-spinner" *ngIf="!isDone">
+  <div class="spinner-frame">
+      <div class="spinner-cover"></div>
+      <mat-spinner></mat-spinner>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="text-center">
+    <h2>{{ dataRemote.poke_list.name | uppercase }}</h2>
+
+    <div class="rowimg">
+      <div class="column">
+        <img class="w-100" src="{{dataRemote.poke_list.sprites.back_default}}"/>
+      </div>
+      <div class="column">
+        <img class="w-100" src="{{dataRemote.poke_list.sprites.front_default}}"/>
+      </div>
+    </div>
+
+    <!-- break it and catch -->
+    <div class="w-100"></div>
+    <button mat-raised-button color="primary"
+      disabled={{buttonAttr.disable}}
+      (click)="catchIt(template)">
+        {{buttonAttr.text}}
+    </button>
+
+    <!-- break -->
+    <div class="w-100"></div>
+    <small>Probability is 50% to get this species, spirit nonstop!</small>
+
+    <!-- step -->
+    <mat-tab-group>
+      <mat-tab label="Type">
+
+        <!-- type data -->
+        <table class="table table-striped">
+          <tbody>
+            <tr>
+              <th scope="col">Name of Type:</th>
+              <td>{{dataRemote.poke_list_type.name}}</td>
+            </tr>
+            <tr>
+              <th scope="col">Game Indices:</th>
+              <td>
+                <ul class="list-group">
+                  <li class="list-group-item" *ngFor="let item of dataRemote.poke_list_type.game_indices">
+                    {{item.game_index}} - {{item.generation.name}} ({{item.generation.url}})
+                  </li>
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <th scope="col">Pokemon Info:</th>
+              <td>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item" *ngFor="let item of dataRemote.poke_list_type.pokemon">
+                    {{item.slot}} - {{item.pokemon.name}} ({{item.pokemon.url}})
+                  </li>
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <th scope="col">Moves:</th>
+              <td>
+                <ul class="list-group">
+                  <li class="list-group-item" *ngFor="let item of dataRemote.poke_list_type.moves">
+                    {{item.name}} ({{item.url}})
+                  </li>
+                </ul>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+      </mat-tab>
+      <mat-tab label="Movement">
+
+        <!-- movement data -->
+        <table class="table table-bordered">
+          <tbody *ngFor="let item of dataRemote.poke_list_movement; let i = index">
+            <tr>
+              <th colspan="2" class="text-right">Movement No.{{i + 1}}</th>
+            </tr>
+            <tr>
+              <th scope="col">Name of Movement:</th>
+              <td>{{item.name}}</td>
+            </tr>
+            <tr>
+              <th scope="col">Accuracy:</th>
+              <td>{{item.accuracy}}</td>
+            </tr>
+            <tr>
+              <th scope="col">Effect Chance:</th>
+              <td>{{item.effect_chance}}</td>
+            </tr>
+            <tr>
+              <th scope="col">PP:</th>
+              <td>{{item.pp}}</td>
+            </tr>
+            <tr>
+              <th scope="col">Priority:</th>
+              <td>{{item.priority}}</td>
+            </tr>
+            <tr>
+              <th scope="col">Power:</th>
+              <td>{{item.power}}</td>
+            </tr>
+            <tr>
+              <th scope="col">Effect Entries:</th>
+              <td>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item" *ngFor="let val of item.effect_entries">
+                    {{val.effect}} - {{val.short_effect}}
+                  </li>
+                </ul>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>
+
+<!-- dialog -->
+<ng-template #template>
+  <div>
+    <h2>{{luckyData.catch ? 'You got it!' : 'You fail!'}}</h2>
+
+    <div *ngIf="luckyData.catch">
+      <mat-form-field appearance="legacy">
+        <mat-label>Give name to it:</mat-label>
+        <input matInput placeholder="name your poki" [(ngModel)]="pokeName">
+        <mat-hint>Pokemon</mat-hint>
+      </mat-form-field>
+
+      <button mat-raised-button color="warn" (click)="saveIt(dataRemote, templateSuccess)" class="pull-right">
+        Add to my Collection!
+      </button>
+    </div>
+
+    <mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close color="acent">Close</button>
+    </mat-dialog-actions>
+  </div>
+</ng-template>
+
+<ng-template #templateSuccess>
+  <div>
+    <p>Yeay, success added!</p>
+    <mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close color="acent">Close</button>
+    </mat-dialog-actions>
+  </div>
+</ng-template>
